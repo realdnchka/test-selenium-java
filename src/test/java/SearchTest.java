@@ -2,6 +2,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class SearchTest extends TestAbstract{
     @BeforeMethod
     public void settingUp() {
@@ -9,7 +12,7 @@ public class SearchTest extends TestAbstract{
     }
 
     @Test
-    public void searchBagAndClickOnThirdItem(){
+    public void searchBagAndClickOnThirdItem() throws IOException {
         POMHeader headerPage = new POMHeader(driver);
         POMSearchResultPage searchResultPage = new POMSearchResultPage(driver);
         POMMainPage mainPage = new POMMainPage(driver);
@@ -23,6 +26,9 @@ public class SearchTest extends TestAbstract{
         searchResultPage.closeCouponButtonClick();
         searchResultPage.freeShippingCheckboxClick();
         searchResultPage.searchResultItemClickByNumber(3);
+
+        ArrayList<String> newTb = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(newTb.get(1));
 
         takeScreenshot();
     }

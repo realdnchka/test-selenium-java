@@ -1,6 +1,12 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 
 public abstract class TestAbstract {
@@ -15,7 +21,8 @@ public abstract class TestAbstract {
         driver.quit();
     }
 
-    public void takeScreenshot() {
-        new AShot().takeScreenshot(driver);
+    public void takeScreenshot() throws IOException {
+        Screenshot screenshot = new AShot().takeScreenshot(driver);
+        ImageIO.write(screenshot.getImage(), "png", new File("./screenshot.png"));
     }
 }
